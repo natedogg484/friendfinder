@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Friend Finder</title>
+  <!-- Latest compiled and minified CSS & JS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/survey">Survey</a>
+      </li>
+    </ul>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="jumbotron text-center">
+      <h1>Survey</h1>
+      <h3>Take the Survey to find your match!</h3>
+    </div>
+    <div class="row center">
+      <div class="col-lg-3"></div>
+      <div class="col-lg-6 text-center">
+        <form>
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">How likely are you to go out with a group on a weekend?</label>
+            <select class="form-control" id="question1">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">How excited are you to meet new people?</label>
+            <select class="form-control" id="question2">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">On average, how many nights a week do you drink?</label>
+            <select class="form-control" id="question3">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">Which of these numbers isn't a prime number?</label>
+            <select class="form-control" id="question4">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">How much wood could woodchuck chuck chuck if a woodchuck could chuck
+              wood?</label>
+            <select class="form-control" id="question5">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">How difficult was that last sentence for you to say?</label>
+            <select class="form-control" id="question6">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">How many times should you double take for the perfect bubble blowing
+              technique?</label>
+            <select class="form-control" id="question7">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">Which of these numbers are best?</label>
+            <select class="form-control" id="question8">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">How likely are you to use a public restroom in a non-emergency
+              "number 2" situation?</label>
+            <select class="form-control" id="question9">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">What is the square root of 25?</label>
+            <select class="form-control" id="question10">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+          </div>
+        </form>
+        <button type="button" id="friendSubmit" class="btn-lg btn-dark">Find Your Friend</button>
+      </div>
+      <div class="col-lg-3"></div>
+    </div>
+
+</body>
+<script type="text/javascript">
+
+
+  // created an array for the user's answers to be stored in
+  let answers = [];
+
+  $("#friendSubmit").on("click", function () {
+    // clearing answers array so multiple finds could be done without having to restore page
+    answers = [];
+
+    // pushing each individual value into the answer array since I couldn't get a good group push to work easily
+    answers.push(parseInt($("#question1").val()));
+    answers.push(parseInt($("#question2").val()));
+    answers.push(parseInt($("#question3").val()));
+    answers.push(parseInt($("#question4").val()));
+    answers.push(parseInt($("#question5").val()));
+    answers.push(parseInt($("#question6").val()));
+    answers.push(parseInt($("#question7").val()));
+    answers.push(parseInt($("#question8").val()));
+    answers.push(parseInt($("#question9").val()));
+    answers.push(parseInt($("#question10").val()));
+
+
+    console.log(answers)
+    // pulling data from the api objects and working on the math
+    $.get("/api/friends", function (data) {
+      console.log(data)
+      for (var i = 0; i < data.length; i++){
+        console.log(data[i].scores)
+        
+        
+      }
+
+    })
+  })
+
+
+
+</script>
+
+</html>
