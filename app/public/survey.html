@@ -141,6 +141,27 @@
       </div>
       <div class="col-lg-3"></div>
     </div>
+    <!-- the modal in which the match will get appended -->
+    <div class="modal" tabindex="-1" id="matchModal" role="dialog" style="display: none;">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Your Match!!</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Your Match will be appended here</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="reset">Reset</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </body>
 <script type="text/javascript">
@@ -150,6 +171,7 @@
   let answers = [];
 
   $("#friendSubmit").on("click", function () {
+    $('#matchModal').show()
     // clearing answers array so multiple finds could be done without having to restore page
     answers = [];
 
@@ -165,14 +187,12 @@
     answers.push(parseInt($("#question9").val()));
     answers.push(parseInt($("#question10").val()));
 
-
-    console.log(answers)
     // pulling data from the api objects and working on the math
     $.get("/api/friends", function (data) {
       console.log(data)
       let sumMatches = 0;
       let sumAnswers = 0;
-
+      // was supposed to run through all fo the friends with the math but only grabs the numbers from the first friend
       for (var i = 0; i < data.length; i++) {
         sumMatches += data[i].scores[i]
         console.log("Matches: " + sumMatches)
@@ -187,6 +207,10 @@
     })
 
   })
+
+  $("#reset").on("click", function () {
+    location.reload();
+  });
 
 
 
