@@ -170,13 +170,22 @@
     // pulling data from the api objects and working on the math
     $.get("/api/friends", function (data) {
       console.log(data)
-      for (var i = 0; i < data.length; i++){
-        console.log(data[i].scores)
-        
-        
+      let sumMatches = 0;
+      let sumAnswers = 0;
+
+      for (var i = 0; i < data.length; i++) {
+        sumMatches += data[i].scores[i]
+        console.log("Matches: " + sumMatches)
       }
+      for (var j = 0; j < answers.length; j++) {
+        sumAnswers += answers[i]
+        console.log("answers: " + sumAnswers)
+      }
+      let matchIndicator = (sumAnswers - sumMatches)
+      console.log(Math.abs(matchIndicator))
 
     })
+
   })
 
 
